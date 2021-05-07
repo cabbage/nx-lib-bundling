@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@spike/pubcomps": ["libs/pubcomps/src/index.ts"],
+      "@spike/core": ["libs/core/src/index.ts"],
+      "@spike/webcore": ["libs/webcore/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

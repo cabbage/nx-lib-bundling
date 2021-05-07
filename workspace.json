@@ -1,10 +1,109 @@
 {
-  
-  
   "version": 2,
-  
-  "projects": {},
-  "cli": {
-    "defaultCollection": "@nrwl/workspace"
+  "cli": { "defaultCollection": "@nrwl/react" },
+  "generators": { "@nrwl/react": { "application": { "babel": true } } },
+  "projects": {
+    "pubcomps": {
+      "root": "libs/pubcomps",
+      "sourceRoot": "libs/pubcomps/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/pubcomps",
+            "tsConfig": "libs/pubcomps/tsconfig.lib.json",
+            "project": "libs/pubcomps/package.json",
+            "entryFile": "libs/pubcomps/src/index.ts",
+            "external": ["react", "react-dom"],
+            "rollupConfig": [
+              "libs/pubcomps/rollup.config.js"
+            ],
+            "buildableProjectDepsInPackageJsonType": "dependencies",
+            "globals": [
+              { "moduleId": "@spike/core", "global": "@spike/core" },
+              { "moduleId": "@spike/webcore", "global": "@spike/webcore" }
+            ],
+            "assets": [
+              { "glob": "libs/pubcomps/README.md", "input": ".", "output": "." }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/pubcomps/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/pubcomps"],
+          "options": {
+            "jestConfig": "libs/pubcomps/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "core": {
+      "root": "libs/core",
+      "sourceRoot": "libs/core/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/core",
+            "tsConfig": "libs/core/tsconfig.lib.json",
+            "packageJson": "libs/core/package.json",
+            "main": "libs/core/src/index.ts",
+            "assets": ["libs/core/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["libs/core/**/*.ts"] }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/core"],
+          "options": {
+            "jestConfig": "libs/core/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "webcore": {
+      "root": "libs/webcore",
+      "sourceRoot": "libs/webcore/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/workspace:tsc",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/webcore",
+            "main": "libs/webcore/src/index.ts",
+            "tsConfig": "libs/webcore/tsconfig.lib.json",
+            "assets": ["libs/webcore/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["libs/webcore/**/*.ts"] }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/webcore"],
+          "options": {
+            "jestConfig": "libs/webcore/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
   }
 }
